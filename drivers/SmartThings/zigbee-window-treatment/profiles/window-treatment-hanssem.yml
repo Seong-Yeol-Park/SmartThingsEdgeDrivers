@@ -1,0 +1,26 @@
+name: window-treatment-hanssem
+components:
+- id: main
+  capabilities:
+  - id: windowShade
+    version: 1
+  - id: windowShadeLevel
+    version: 1
+  - id: windowShadePreset
+    version: 1  
+  categories:
+  - name: Blind
+
+preferences:
+  - preferenceId: reverse
+    explicit: true
+  - name: reverseDisplay
+    title: "Reverse Display"
+    description: "Reverse the position value."
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false  
+  - preferenceId: presetPosition
+    explicit: true
+  

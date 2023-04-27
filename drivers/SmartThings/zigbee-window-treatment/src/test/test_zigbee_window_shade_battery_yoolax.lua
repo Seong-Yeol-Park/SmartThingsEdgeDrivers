@@ -22,14 +22,15 @@ local t_utils = require "integration_test.utils"
 local WindowCovering = clusters.WindowCovering
 
 local mock_device = test.mock_device.build_test_zigbee_device(
-  { profile = t_utils.get_profile_definition("window-treatment-battery.yml"),
+  {
+    profile = t_utils.get_profile_definition("window-treatment-battery.yml"),
     fingerprinted_endpoint_id = 0x01,
     zigbee_endpoints = {
       [1] = {
         id = 1,
         manufacturer = "Yookee",
         model = "D10110",
-        server_clusters = {0x000, 0x0001, 0x0003, 0x0004, 0x0005, 0x0102}
+        server_clusters = { 0x000, 0x0001, 0x0003, 0x0004, 0x0005, 0x0102 }
       }
     }
   }
@@ -54,13 +55,15 @@ test.register_coroutine_test(
       }
     )
     test.socket.capability:__expect_send(
+      {
+        mock_device.id,
         {
-          mock_device.id,
-          {
-            capability_id = "windowShadeLevel", component_id = "main",
-            attribute_id = "shadeLevel", state = { value = 99 }
-          }
+          capability_id = "windowShadeLevel",
+          component_id = "main",
+          attribute_id = "shadeLevel",
+          state = { value = 99 }
         }
+      }
     )
     test.socket.capability:__expect_send(
       mock_device:generate_test_message("main", capabilities.windowShade.windowShade.opening())
@@ -84,13 +87,15 @@ test.register_coroutine_test(
       }
     )
     test.socket.capability:__expect_send(
+      {
+        mock_device.id,
         {
-          mock_device.id,
-          {
-            capability_id = "windowShadeLevel", component_id = "main",
-            attribute_id = "shadeLevel", state = { value = 90 }
-          }
+          capability_id = "windowShadeLevel",
+          component_id = "main",
+          attribute_id = "shadeLevel",
+          state = { value = 90 }
         }
+      }
     )
     test.socket.capability:__expect_send(
       mock_device:generate_test_message("main", capabilities.windowShade.windowShade.opening())
@@ -108,8 +113,10 @@ test.register_coroutine_test(
     test.socket.capability:__expect_send({
       mock_device.id,
       {
-        capability_id = "windowShadeLevel", component_id = "main",
-        attribute_id = "shadeLevel", state = { value = 85 }
+        capability_id = "windowShadeLevel",
+        component_id = "main",
+        attribute_id = "shadeLevel",
+        state = { value = 85 }
       }
     })
     test.socket.capability:__expect_send(
@@ -126,7 +133,8 @@ test.register_coroutine_test(
 test.register_coroutine_test(
   "windowShadePreset capability should be handled",
   function()
-    test.socket.device_lifecycle():__queue_receive(mock_device:generate_info_changed({preferences = {presetPosition = 30}}))
+    test.socket.device_lifecycle():__queue_receive(mock_device:generate_info_changed({
+      preferences = { presetPosition = 30 } }))
     test.wait_for_events()
     test.socket.capability:__queue_receive(
       {
@@ -144,7 +152,8 @@ test.register_coroutine_test(
 test.register_coroutine_test(
   "windowShade Open command should be handled",
   function()
-    test.socket.device_lifecycle():__queue_receive(mock_device:generate_info_changed({preferences = {presetPosition = 30}}))
+    test.socket.device_lifecycle():__queue_receive(mock_device:generate_info_changed({
+      preferences = { presetPosition = 30 } }))
     test.wait_for_events()
     test.socket.capability:__queue_receive(
       {

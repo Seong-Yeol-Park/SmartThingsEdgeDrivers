@@ -18,8 +18,8 @@ local WindowCovering = zcl_clusters.WindowCovering
 local windowShadeDefaults = require "st.zigbee.defaults.windowShade_defaults"
 
 local YOOLAX_WINDOW_SHADE_FINGERPRINTS = {
-    { mfr = "Yookee", model = "D10110" },                                 -- Yookee Window Treatment
-    { mfr = "yooksmart", model = "D10110" }                               -- yooksmart Window Treatment
+  { mfr = "Yookee",    model = "D10110" },  -- Yookee Window Treatment
+  { mfr = "yooksmart", model = "D10110" }   -- yooksmart Window Treatment
 }
 
 local function is_yoolax_window_shade(opts, driver, device)
@@ -51,7 +51,7 @@ local function set_window_shade_level(level)
 end
 
 local function current_position_attr_handler(driver, device, value, zb_rx)
-  windowShadeDefaults.default_current_lift_percentage_handler(driver, device, {value = 100 - value.value}, zb_rx)
+  windowShadeDefaults.default_current_lift_percentage_handler(driver, device, { value = 100 - value.value }, zb_rx)
 end
 
 local yoolax_window_shade = {
