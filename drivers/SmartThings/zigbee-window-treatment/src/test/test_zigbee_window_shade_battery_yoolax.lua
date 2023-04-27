@@ -58,7 +58,7 @@ test.register_coroutine_test(
           mock_device.id,
           {
             capability_id = "windowShadeLevel", component_id = "main",
-            attribute_id = "shadeLevel", state = { value = 99 }
+            attribute_id = "shadeLevel", state = { value = 1 }
           }
         }
     )
@@ -88,7 +88,7 @@ test.register_coroutine_test(
           mock_device.id,
           {
             capability_id = "windowShadeLevel", component_id = "main",
-            attribute_id = "shadeLevel", state = { value = 90 }
+            attribute_id = "shadeLevel", state = { value = 10 }
           }
         }
     )
@@ -109,11 +109,11 @@ test.register_coroutine_test(
       mock_device.id,
       {
         capability_id = "windowShadeLevel", component_id = "main",
-        attribute_id = "shadeLevel", state = { value = 85 }
+        attribute_id = "shadeLevel", state = { value = 15 }
       }
     })
     test.socket.capability:__expect_send(
-      mock_device:generate_test_message("main", capabilities.windowShade.windowShade.closing())
+      mock_device:generate_test_message("main", capabilities.windowShade.windowShade.opening())
     )
     test.mock_time.advance_time(3)
     test.socket.capability:__expect_send(
@@ -136,7 +136,7 @@ test.register_coroutine_test(
     )
     test.socket.zigbee:__expect_send({
       mock_device.id,
-      WindowCovering.server.commands.GoToLiftPercentage(mock_device, 70)
+      WindowCovering.server.commands.GoToLiftPercentage(mock_device, 30)
     })
   end
 )
@@ -154,7 +154,7 @@ test.register_coroutine_test(
     )
     test.socket.zigbee:__expect_send({
       mock_device.id,
-      WindowCovering.server.commands.GoToLiftPercentage(mock_device, 0)
+      WindowCovering.server.commands.GoToLiftPercentage(mock_device, 100)
     })
   end
 )
